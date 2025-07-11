@@ -49,6 +49,9 @@ function App() {
                   localStorage.setItem('user', JSON.stringify(CredentialResponseDecoded));
                   // sessionStorage (persists until tab closes)
                   sessionStorage.setItem('user', JSON.stringify(CredentialResponseDecoded));
+                  // Save the raw Google ID token as well
+                  localStorage.setItem('google_id_token', CredentialResponse.credential);
+                  sessionStorage.setItem('google_id_token', CredentialResponse.credential);
                   setUser(CredentialResponseDecoded);
                   setLoginStatus('success');
                 }}
