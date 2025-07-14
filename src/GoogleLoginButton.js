@@ -15,7 +15,7 @@ function GoogleLoginButton() {
         : "https://backend-git-main-shrutimovaliya24-gmailcoms-projects.vercel.app";
 
     try {
-      const res = await fetch(`${API_URL}/webhook`, {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/webhook`, {
         method: "POST",
         headers: { "Content-Type": "text/plain" },
         body: idToken,
