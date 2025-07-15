@@ -16,7 +16,7 @@ function GoogleLoginButton() {
     const API_URL =
       window.location.hostname === "localhost"
         ? "http://localhost:5001"
-        : "https://your-deployed-backend.com"; // update this if deployed
+        : "https://backend-lemon-omega-65.vercel.app"; // update this if deployed
 
     try {
       const res = await fetch(`${API_URL}/auth/google`, {
