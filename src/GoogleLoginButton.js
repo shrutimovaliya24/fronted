@@ -12,25 +12,31 @@ function GoogleLoginButton() {
     const API_URL =
       window.location.hostname === "localhost"
         ? "http://localhost:3000"
-        : "https://backend-git-main-shrutimovaliya24-gmailcoms-projects.vercel.app";
+        : "https://trial-ncz4.vercel.app"; // 👈 replace with your actual deployed domain if needed
 
     try {
-      const res = await fetch(`${API_URL}/webhook`, {
+      const res = await fetch(`${API_URL}/auth/google`, {
         method: "POST",
-        headers: { "Content-Type": "text/plain" },
+        headers: { "Content-Type": "text/plain" }, // plain text token
         body: idToken,
       });
 
       if (res.ok) {
-        alert(" Webhook sent successfully!");
+        const data = await res.json();
+        console.log("App JWT:", data.token);
+
+        // 💾 Optionally store the JWT in localStorage or cookie
+        localStorage.setItem("app_token", data.token);
+
+        alert("Signed in successfully!");
       } else {
         const errorText = await res.text();
         console.error("Server error:", errorText);
-        alert(" Error from server: " + errorText);
+        alert("Error from server: " + errorText);
       }
     } catch (error) {
       console.error("Network error:", error);
-      alert(" Network error while sending webhook.");
+      alert("Network error while signing in.");
     }
   };
 
@@ -38,7 +44,7 @@ function GoogleLoginButton() {
     <GoogleOAuthProvider clientId={clientId}>
       <GoogleLogin
         onSuccess={handleSuccess}
-        onError={() => alert(" Google Login Failed")}
+        onError={() => alert("Google Login Failed")}
         useOneTap
       />
     </GoogleOAuthProvider>
