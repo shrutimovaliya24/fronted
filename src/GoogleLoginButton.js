@@ -5,6 +5,8 @@ const clientId =
   "433398797157-i4d0scs7n5qvkut4q9ru7b7i3v2dsaj1.apps.googleusercontent.com"; // your real client ID
 
 function GoogleLoginButton() {
+  const [loading, setLoading] = useState(false);
+
   const handleSuccess = async (credentialResponse) => {
     console.log("Google response:", credentialResponse);
 
@@ -12,10 +14,11 @@ function GoogleLoginButton() {
     if (!idToken) {
       return alert("Login failed: No token returned");
     }
+    setLoading(true);
 
     const API_URL =
       window.location.hostname === "localhost"
-        ? "http://localhost:5001"
+        ? "http://localhost:5000"
         : "https://backend-lemon-omega-65.vercel.app"; 
 
     try {
@@ -27,7 +30,7 @@ function GoogleLoginButton() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log("✅ App JWT:", data.token);
+        console.log(" App JWT:", data.token);
 
         localStorage.setItem("app_token", data.token);
         alert("Signed in successfully!");
@@ -39,6 +42,9 @@ function GoogleLoginButton() {
     } catch (error) {
       console.error("Network error:", error);
       alert("Network error while signing in.");
+    }
+    finally {
+      setLoading(false);
     }
   };
 
