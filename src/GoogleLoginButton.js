@@ -15,7 +15,7 @@ function GoogleLoginButton() {
 
     const API_URL =
       window.location.hostname === "localhost"
-        ? "http://localhost:5001"
+        ? "http://localhost:5000"
         : "https://backend-lemon-omega-65.vercel.app"; 
 
     try {
